@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +25,7 @@ SECRET_KEY = '^##ydkswfu0+=ofw0l#$kv^8n)0$i(qd&d&ol#p9!b$8*5%j1+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -70,7 +70,20 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'http://localhost:8000'
+BASEURL = 'https://juagarjim3-examen-septiembre.herokuapp.com'
+
+APIS = {
+    	'authentication': 'https://juagarjim3-examen-septiembre.herokuapp.com', 
+    	'base': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+    	'booth': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+    	'census': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+    	'mixnet': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+   	'postproc': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+    	'store': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+    	'visualizer': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+    	'voting': 'https://juagarjim3-examen-septiembre.herokuapp.com',
+	}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -108,15 +121,10 @@ WSGI_APPLICATION = 'decide.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'decide',
-        'USER': 'decide',
-        'PASSWORD': 'decide',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -180,3 +188,4 @@ if os.path.exists("config.jsonnet"):
 
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
+django_heroku.settings(locals())
